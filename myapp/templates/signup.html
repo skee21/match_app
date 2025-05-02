@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen m-0 p-0">
+
+  <!-- Background wrapper with image and overlay -->
+  <div class="relative min-h-screen bg-cover bg-center flex items-center justify-center px-4"
+       style="background-image: url('https://media.istockphoto.com/id/1307457287/photo/group-of-happy-students-looking-at-exam-results-while-standing-at-university-hallway.jpg?s=612x612&w=0&k=20&c=yIdSjLDNZaCOpKtvsK-UlI2ZYcN5r2heWp4vJtj9aVU=');">
+    
+    <!-- Dark overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-60 z-0"></div>
+
+    <!-- Form container with blur and higher opacity -->
+    <div class="relative z-10 bg-white bg-opacity-90 backdrop-blur-md p-8 rounded-lg shadow-2xl w-full max-w-2xl transition-all duration-500 ease-in-out">
+
+      <!-- Progress bar -->
+      <div class="relative h-2 bg-gray-300 rounded-full mb-6">
+        <div id="progressBar" class="absolute top-0 left-0 h-2 bg-blue-600 rounded-full transition-all duration-500 ease-in-out" style="width: 0%;"></div>
+      </div>
+
+      <form method="POST" id="signupForm">
+        {% csrf_token %}
+
+        <!-- Step container -->
+        <div class="relative h-80 overflow-hidden">
+          <!-- Step 1 -->
+          <div id="step-1" class="absolute inset-0 transition-all duration-700 ease-in-out transform translate-x-0">
+            <h2 class="text-2xl font-semibold mb-4">Account Details</h2>
+            <div class="mb-4">
+              <label for="email" class="block mb-1">Email</label>
+              <input type="email" name="email" id="email" class="w-full border border-gray-300 rounded p-2" required>
+            </div>
+            <div class="mb-4">
+              <label for="username" class="block mb-1">Username</label>
+              <input type="text" name="username" id="username" class="w-full border border-gray-300 rounded p-2" required>
+            </div>
+            <button type="button" id="next-1" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Next</button>
+          </div>
+
+          <!-- Step 2 -->
+          <div id="step-2" class="absolute inset-0 transition-all duration-700 ease-in-out transform translate-x-full">
+            <h2 class="text-2xl font-semibold mb-4">Set Password</h2>
+            <div class="mb-4">
+              <label for="password" class="block mb-1">Password</label>
+              <div class="relative">
+                <input type="password" name="password" id="password" class="w-full border border-gray-300 rounded p-2 pr-10" required>
+                <button type="button" id="togglePassword" class="absolute right-2 top-2 text-sm text-gray-600">Show</button>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="confirm_password" class="block mb-1">Confirm Password</label>
+              <div class="relative">
+                <input type="password" name="confirm_password" id="confirm_password" class="w-full border border-gray-300 rounded p-2 pr-10" required>
+                <button type="button" id="toggleConfirmPassword" class="absolute right-2 top-2 text-sm text-gray-600">Show</button>
+              </div>
+            </div>
+            <div class="flex justify-between">
+              <button type="button" id="prev-2" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">Previous</button>
+              <button type="button" id="next-2" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Next</button>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div id="step-3" class="absolute inset-0 transition-all duration-700 ease-in-out transform translate-x-full">
+            <h2 class="text-2xl font-semibold mb-4">Personal Details</h2>
+            <div class="mb-4">
+              <label for="name" class="block mb-1">Name</label>
+              <input type="text" name="name" id="name" class="w-full border border-gray-300 rounded p-2" required>
+            </div>
+            <div class="mb-4">
+              <label for="DOB" class="block mb-1">DOB</label>
+              <input type="date" name="DOB" id="DOB" class="w-full border border-gray-300 rounded p-2" required>
+            </div>
+            <div class="flex justify-between">
+              <button type="button" id="prev-3" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">Previous</button>
+              <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Sign Up</button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Login redirect -->
+      <div class="mt-6 text-center text-white">
+        <span>Already have an account?</span>
+        <a href="{% url 'login' %}" class="text-blue-300 hover:underline">Login</a>
+      </div>
+
+      {% if messages %}
+        <div class="mt-4">
+          {% for message in messages %}
+            <div class="text-red-500 text-center">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const steps = [
+      document.getElementById('step-1'),
+      document.getElementById('step-2'),
+      document.getElementById('step-3')
+    ];
+    const progressBar = document.getElementById('progressBar');
+    let currentStep = 0;
+
+    function showStep(index) {
+      steps.forEach((step, i) => {
+        step.style.transform = `translateX(${(i - index) * 100}%)`;
+      });
+      progressBar.style.width = `${(index / (steps.length - 1)) * 100}%`;
+    }
+
+    document.getElementById('next-1').onclick = () => {
+      currentStep = 1;
+      showStep(currentStep);
+    };
+
+    document.getElementById('next-2').onclick = () => {
+      currentStep = 2;
+      showStep(currentStep);
+    };
+
+    document.getElementById('prev-2').onclick = () => {
+      currentStep = 0;
+      showStep(currentStep);
+    };
+
+    document.getElementById('prev-3').onclick = () => {
+      currentStep = 1;
+      showStep(currentStep);
+    };
+
+    document.getElementById('togglePassword').onclick = function () {
+      const pwd = document.getElementById('password');
+      pwd.type = pwd.type === 'password' ? 'text' : 'password';
+      this.textContent = pwd.type === 'password' ? 'Show' : 'Hide';
+    };
+
+    document.getElementById('toggleConfirmPassword').onclick = function () {
+      const pwd = document.getElementById('confirm_password');
+      pwd.type = pwd.type === 'password' ? 'text' : 'password';
+      this.textContent = pwd.type === 'password' ? 'Show' : 'Hide';
+    };
+
+    showStep(currentStep);
+  </script>
+
+</body>
+</html>
