@@ -1,79 +1,99 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>CEC Match</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-black text-white font-sans">
+<body class="m-0 p-0 min-h-screen flex items-center justify-center">
 
-    <!-- Hero Section -->
-    <div class="relative h-screen bg-cover bg-center" style="background-image: url('https://media.istockphoto.com/id/1307457287/photo/group-of-happy-students-looking-at-exam-results-while-standing-at-university-hallway.jpg?s=612x612&w=0&k=20&c=yIdSjLDNZaCOpKtvsK-UlI2ZYcN5r2heWp4vJtj9aVU=');">
-    
-        <!-- Dark Overlay -->
-        <div class="absolute inset-0 bg-black bg-opacity-60 z-10"></div>
-    
-        <!-- Main Content -->
-        <div class="relative z-20 flex flex-col h-full justify-between">
-    
-            <!-- Header -->
-            <div class="flex justify-between items-center px-8 py-4">
-                <div class="flex items-center space-x-3">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4jitDRf9cuM4vIaaFMKZBFS3Z0cT-EldQCw&s" alt="Logo" class="w-10 h-10 rounded-full border border-white">
-                    <h1 class="text-2xl font-bold text-white">CEC Match</h1>
-                </div>
-                <a href="{% url 'login' %}" class="bg-red-600/40 backdrop-blur-md rounded-full text-white px-8 py-4 shadow-lg transition hover:bg-red-600/20 hover:shadow-xl">
-                    Sign In
-                </a>
-            </div>
-    
-            <!-- Hero Content -->
-            <div class="flex flex-col items-center justify-center text-center text-white px-4">
-                <h2 class="text-4xl md:text-5xl font-extrabold mb-4 animate-fade-in-up">Find your friend, buddy, or maybe something more</h2>
-                <p class="text-lg md:text-xl mb-8 max-w-2xl animate-fade-in-up delay-100">An easy way to connect with your peers with similar interests and much more.</p>
-                <form class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
-                    <input type="email" placeholder="Email address" class="px-6 py-3 w-72 rounded-full text-black focus:outline-none shadow-lg">
-                    <a href="{% url 'signup' %}" class="bg-red-600/40 backdrop-blur-md hover:bg-red-900/30 transition text-white px-6 py-3 rounded-full font-semibold shadow-md transform hover:scale-105 cursor-pointer">
-                        Get Started
-                    </a>
-                </form>
-            </div>
-    
-            <!-- Info Section (Sticky Bottom) -->
-            <div class="flex justify-center px-4 mt-auto mb-10">
-                <section class="bg-white/10 backdrop-blur-lg border border-white/10 rounded-2xl p-10 text-center text-white w-[90%] max-w-6xl shadow-2xl">
-                    <h2 class="text-xl md:text-2xl font-bold mb-6 animate-fade-in-up">What is CEC Match?</h2>
-                    <p class="text-lg md:text-xl text-gray-200 animate-fade-in-up delay-200">
-                        CEC Match is a platform designed to bring people together based on shared interests and smart algorithms.
-                        Whether you're here to network, collaborate, or explore, this is your starting point.
-                    </p>
-                </section>
-            </div>
+  <!-- Background image with dark overlay -->
+  <div
+    class="relative min-h-screen w-full bg-cover bg-center flex items-center justify-center px-4"
+    style="background-image: url('https://media.istockphoto.com/id/1307457287/photo/group-of-happy-students-looking-at-exam-results-while-standing-at-university-hallway.jpg?s=612x612&w=0&k=20&c=yIdSjLDNZaCOpKtvsK-UlI2ZYcN5r2heWp4vJtj9aVU=');"
+  >
+
+    <!-- Dark overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-60 z-0"></div>
+
+    <!-- Form container with blurry background -->
+    <div
+      class="relative z-10 bg-white bg-opacity-20 backdrop-blur-xl p-8 rounded-2xl shadow-2xl w-full max-w-md animate-fade-in-up"
+    >
+
+      <!-- Logo -->
+      <div class="flex justify-center mb-6">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4jitDRf9cuM4vIaaFMKZBFS3Z0cT-EldQCw&s"
+          alt="Logo"
+          class="rounded-full w-20 h-20 object-cover"
+        />
+      </div>
+
+      <h2 class="text-2xl font-bold mb-6 text-center text-white">Welcome Back</h2>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        {% if messages %}
+        <div class="mb-4">
+          {% for message in messages %}
+          <div class="bg-red-100 text-red-700 p-2 rounded text-sm text-center">
+            {{ message }}
+          </div>
+          {% endfor %}
         </div>
+        {% endif %}
+
+        <div class="mb-4">
+          <label class="block mb-1 text-sm font-light text-white">Username</label>
+          <input
+            name="username"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required
+          />
+        </div>
+
+        <div class="mb-6">
+          <label class="block mb-1 text-sm font-light text-white">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600/50 transition duration-200"
+        >
+          Log In
+        </button>
+
+        <p class="text-sm mt-4 text-center text-gray-200">
+          Don't have an account?
+          <a href="{% url 'signup' %}" class="text-red-300 hover:underline">Sign Up</a>
+        </p>
+      </form>
     </div>
+  </div>
 
-    <!-- Animation Keyframes -->
-    <style>
-        @keyframes fade-in-up {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fade-in-up 0.8s ease-out forwards;
-        }
-
-        .delay-200 {
-            animation-delay: 0.2s;
-        }
-    </style>
-
+  <!-- Fade-in animation -->
+  <style>
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(2rem);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-fade-in-up {
+      animation: fade-in-up 0.6s ease-out forwards;
+    }
+  </style>
 </body>
 </html>
