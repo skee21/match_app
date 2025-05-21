@@ -23,39 +23,35 @@
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4jitDRf9cuM4vIaaFMKZBFS3Z0cT-EldQCw&s" alt="Logo" class="w-10 h-10 rounded-full border border-white">
                     <h1 class="text-2xl font-bold text-white">CEC Match</h1>
                 </div>
-                <div>
-                    <a href="{% url 'login' %}" class="bg-red-600 hover:bg-red-700 transition text-white px-6 py-2 rounded-md font-semibold shadow-md transform hover:scale-105 cursor-pointer">
-                        Sign In
-                    </a>
-                </div>
+                <a href="{% url 'login' %}" class="bg-red-600/40 backdrop-blur-md rounded-full text-white px-8 py-4 shadow-lg transition hover:bg-red-600/20 hover:shadow-xl">
+                    Sign In
+                </a>
             </div>
     
-            <!-- Hero Section -->
+            <!-- Hero Content -->
             <div class="flex flex-col items-center justify-center text-center text-white px-4">
                 <h2 class="text-4xl md:text-5xl font-extrabold mb-4 animate-fade-in-up">Find your friend, buddy, or maybe something more</h2>
                 <p class="text-lg md:text-xl mb-8 max-w-2xl animate-fade-in-up delay-100">An easy way to connect with your peers with similar interests and much more.</p>
-                
                 <form class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
-                    <input type="email" placeholder="Email address" class="px-6 py-3 w-72 rounded-md text-black focus:outline-none shadow-lg">
-                    <a href="{% url 'signup' %}" class="bg-red-600 hover:bg-red-700 transition text-white px-6 py-3 rounded-md font-semibold shadow-md transform hover:scale-105 cursor-pointer">
+                    <input type="email" placeholder="Email address" class="px-6 py-3 w-72 rounded-full text-black focus:outline-none shadow-lg">
+                    <a href="{% url 'signup' %}" class="bg-red-600/40 backdrop-blur-md hover:bg-red-900/30 transition text-white px-6 py-3 rounded-full font-semibold shadow-md transform hover:scale-105 cursor-pointer">
                         Get Started
                     </a>
                 </form>
             </div>
     
-            <div class="mb-10"></div>
+            <!-- Info Section (Sticky Bottom) -->
+            <div class="flex justify-center px-4 mt-auto mb-10">
+                <section class="bg-white/10 backdrop-blur-lg border border-white/10 rounded-2xl p-10 text-center text-white w-[90%] max-w-6xl shadow-2xl">
+                    <h2 class="text-xl md:text-2xl font-bold mb-6 animate-fade-in-up">What is CEC Match?</h2>
+                    <p class="text-lg md:text-xl text-gray-200 animate-fade-in-up delay-200">
+                        CEC Match is a platform designed to bring people together based on shared interests and smart algorithms.
+                        Whether you're here to network, collaborate, or explore, this is your starting point.
+                    </p>
+                </section>
+            </div>
         </div>
     </div>
-
-    <!-- Info Section -->
-    <section class="bg-gradient-to-b from-gray-900 to-black py-20 px-6 text-center">
-        <h2 class="text-4xl md:text-5xl font-bold mb-6 animate-fade-in-up">
-            What this platform is
-        </h2>
-        <p class="max-w-3xl mx-auto text-lg md:text-xl text-gray-300 animate-fade-in-up delay-200">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. CEC Match is a platform designed to bring people together based on shared interests and intelligent algorithms. Whether you're here to network, collaborate, or just explore, this is your starting point.
-        </p>
-    </section>
 
     <!-- Animation Keyframes -->
     <style>
@@ -76,10 +72,6 @@
 
         .delay-200 {
             animation-delay: 0.2s;
-        }
-
-        .delay-300 {
-            animation-delay: 0.3s;
         }
     </style>
 
